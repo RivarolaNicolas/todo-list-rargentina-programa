@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TodoInput = (props) => {
-  const { task, setTask, input, setInput } = props;
+  const { task, setTask, input, setInput, taskLocalStorage, setTaskLocalStorage } = props;
   const handleInputChange = (event) => {
     event.preventDefault();
     setInput(event.target.value);
@@ -10,6 +10,7 @@ const TodoInput = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setTask([...task, input]);
+    localStorage.setItem(`key`, task);
   };
 
   return (
