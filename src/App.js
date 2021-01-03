@@ -1,30 +1,35 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoInput from './components/TodoInput';
 import TodoTable from './components/TodoTable';
-import useLocalStorage from 'react-use-localstorage';
+import TodoDelete from './components/TodoDelete';
 
 function App() {
   const [task, setTask] = useState([]);
   const [input, setInput] = useState('');
-  const [taskLocalStorage, setTaskLocalStorage] = useLocalStorage('key', '');
+
+  useEffect(() => {
+    if (localStorage.getItem('task') != null) {
+      setTask(JSON.parse(localStorage.getItem('task')));
+    }
+  }, []);
+
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setInput(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setTask([...task, input]);
+    localStorage.setItem('task', JSON.stringify([...task, input]));
+  };
 
   return (
     <div>
-      <TodoInput
-        taskLocalStorage={taskLocalStorage}
-        setTaskLocalStorage={setTaskLocalStorage}
-        input={input}
-        setInput={setInput}
-        task={task}
-        setTask={setTask}
-      />
-      <TodoTable
-        taskLocalStorage={taskLocalStorage}
-        setTaskLocalStorage={setTaskLocalStorage}
-        task={task}
-        setTask={setTask}
-      />
+      <TodoInput handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+      <TodoTable task={task} input={input} />
+      <TodoDelete setTask={setTask} />
     </div>
   );
 }

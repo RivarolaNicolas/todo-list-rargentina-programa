@@ -1,12 +1,12 @@
 import React from 'react';
 
 const TodoTable = (props) => {
-  const { task, taskLocalStorage } = props;
+  const { task, input } = props;
 
   return (
     <span className="flex flex-col justify-center items-center">
-      {localStorage.getItem('key') == true
-        ? localStorage.getItem('key').map((element, index) => {
+      {JSON.parse(localStorage.getItem('task')) != null
+        ? JSON.parse(localStorage.getItem('task')).map((element, index) => {
             return (
               <div
                 className={` shadow-md w-3/6 items-center justify-center ${
@@ -19,9 +19,7 @@ const TodoTable = (props) => {
                       type="checkbox"
                       id="checkbox"
                       className="flex flex-row place-self-center mx-2"
-                    >
-                      {console.log(localStorage.getItem('key'))}
-                    </input>
+                    ></input>
                     {element}
                   </div>
                 </div>
@@ -41,9 +39,7 @@ const TodoTable = (props) => {
                       type="checkbox"
                       id="checkbox"
                       className="flex flex-row place-self-center mx-2"
-                    >
-                      {console.log(localStorage.getItem('key'))}
-                    </input>
+                    ></input>
                     {element}
                   </div>
                 </div>

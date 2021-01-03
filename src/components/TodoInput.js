@@ -1,17 +1,7 @@
 import React from 'react';
 
 const TodoInput = (props) => {
-  const { task, setTask, input, setInput, taskLocalStorage, setTaskLocalStorage } = props;
-  const handleInputChange = (event) => {
-    event.preventDefault();
-    setInput(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setTask([...task, input]);
-    localStorage.setItem(`key`, task);
-  };
+  const { handleInputChange, handleSubmit } = props;
 
   return (
     <span className="flex flex-col justify-center items-center ">
