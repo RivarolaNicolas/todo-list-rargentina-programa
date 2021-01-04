@@ -5,12 +5,12 @@ import TodoTable from './components/TodoTable';
 import TodoDelete from './components/TodoDelete';
 
 function App() {
-  const [task, setTask] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem('task') != null) {
-      setTask(JSON.parse(localStorage.getItem('task')));
+    if (localStorage.getItem('tasks') != null) {
+      setTasks(JSON.parse(localStorage.getItem('tasks')));
     }
   }, []);
 
@@ -21,15 +21,16 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setTask([...task, input]);
-    localStorage.setItem('task', JSON.stringify([...task, input]));
+    setTasks([...tasks, input]);
+    localStorage.setItem('tasks', JSON.stringify([{ task: [...tasks, input], checked: false }]));
+    console.log(JSON.parse(localStorage.getItem('tasks')));
   };
 
   return (
     <div>
       <TodoInput handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
-      <TodoTable task={task} input={input} />
-      <TodoDelete setTask={setTask} />
+      <TodoTable tasks={tasks} input={input} />
+      <TodoDelete setTasks={setTasks} />
     </div>
   );
 }
