@@ -22,9 +22,16 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setTasks([...tasks, input]);
-    localStorage.setItem('tasks', JSON.stringify([{ task: [...tasks, input], checked: false }]));
-    console.log(JSON.parse(localStorage.getItem('tasks')));
   };
+
+  useEffect(() => {
+    for (let index = 0; index < tasks.length; index++) {
+      localStorage.setItem(
+        `task${index}`,
+        JSON.stringify([{ task: tasks[index], checked: false }])
+      );
+    }
+  }, [tasks]);
 
   return (
     <div>

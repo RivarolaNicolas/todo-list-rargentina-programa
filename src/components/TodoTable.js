@@ -11,11 +11,11 @@ const TodoTable = (props) => {
 
   return (
     <span className="flex flex-col justify-center items-center">
-      {JSON.parse(localStorage.getItem('task')) != null
-        ? JSON.parse(localStorage.getItem('task')).map((element, index) => {
+      {JSON.parse(localStorage.getItem('tasks')) != null
+        ? JSON.parse(localStorage.getItem('tasks')).map((element, index) => {
             return (
               <div
-                className={` shadow-md w-3/6 items-center justify-center ${
+                className={`shadow-md w-3/6 items-center justify-center ${
                   index % 2 === 0 ? 'bg-yellow-900 bg-opacity-60' : ''
                 }`}
               >
@@ -27,7 +27,7 @@ const TodoTable = (props) => {
                       id="checkbox"
                       className="flex flex-row place-self-center mx-2"
                     ></input>
-                    <div className={`${checked === false ? '' : 'checked'}`}>{element}</div>
+                    <div className={`${checked === false ? '' : 'checked'}`}>{element.task}</div>
                   </div>
                 </div>
               </div>
