@@ -14,10 +14,7 @@ const TodoInput = (props) => {
           type="text"
           placeholder="What do you wanna do?"
         ></input>
-        <button
-          onSubmit
-          className="py-1 px-3 mb-4 border-white my-1 text-white text-center shadow-lg"
-        >
+        <button className="py-1 px-3 mb-4 border-white my-1 text-white text-center shadow-lg">
           Add
         </button>
       </form>

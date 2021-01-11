@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 import TodoInput from './components/TodoInput';
 import TodoTable from './components/TodoTable';
 import TodoDelete from './components/TodoDelete';
+import { UseLocalStorageObjectState } from './customHooks/UseLocalStorageObjectState';
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem('tasks') != null) {
+    if (JSON.parse(localStorage.getItem('tasks')) == null) {
       setTasks(JSON.parse(localStorage.getItem('tasks')));
     }
   }, []);
-
   const handleInputChange = (event) => {
     event.preventDefault();
     setInput(event.target.value);
@@ -25,13 +25,16 @@ function App() {
   };
 
   useEffect(() => {
-    for (let index = 0; index < tasks.length; index++) {
-      localStorage.setItem(
-        `task${index}`,
-        JSON.stringify([{ task: tasks[index], checked: false }])
-      );
+    const taskObjects = tasks.map((task) => ({ task, checked: false }));
+    if (JSON.parse(localStorage.getItem('tasks')) != tasks) {
+      localStorage.setItem('tasks', JSON.stringify(taskObjects));
     }
   }, [tasks]);
+
+  // useEffect(() => {
+  //   const taskObjects = tasks.map((task) => ({ task, checked: false }));
+  //   localStorage.setItem('tasks', JSON.stringify(taskObjects));
+  // }, [tasks]);
 
   return (
     <div>
