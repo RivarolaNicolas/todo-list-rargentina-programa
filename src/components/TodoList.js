@@ -1,20 +1,25 @@
 import React from 'react';
 import { useState } from 'react';
+import '../styles/TodoList.css';
 
 export default function TodoList() {
   const [input, setInput] = useState('');
-  const [task, setTask] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   function inputHandler(event) {
     event.preventDefault();
     setInput(event.target.value);
-    console.log(event.target.value);
   }
 
-  function taskHandler(event) {
+  function tasksHandler(event) {
     event.preventDefault();
-    setTask([...task, { text: input, checked: false }]);
-    console.log(task);
+    setTasks([...tasks, { text: input, checked: false }]);
+  }
+
+  function checkTask(index) {
+    let tasksArray = [...tasks];
+    tasksArray[index].checked = !tasksArray[index].checked;
+    setTasks(tasksArray);
   }
 
   return (
@@ -24,8 +29,18 @@ export default function TodoList() {
       </div>
       <div>
         <input onChange={inputHandler} type="text" placeholder="Things you have to do"></input>
-        <button onClick={taskHandler}>Submit</button>
+        <button onClick={tasksHandler}>Submit</button>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      {tasks.map((task, index) => (
+        <div>
+          <input onClick={() => checkTask(index)} type="checkbox"></input>
+          <p className={task.checked ? 'isClicked' : ''}>{task.text}</p>
+        </div>
+      ))}
     </div>
   );
 }
