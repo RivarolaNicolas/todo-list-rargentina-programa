@@ -1,11 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/TodoList.css';
 
 export default function TodoList() {
   const [input, setInput] = useState('');
   const [tasks, setTasks] = useState([]);
-
   function inputHandler(event) {
     event.preventDefault();
     setInput(event.target.value);
@@ -14,13 +13,21 @@ export default function TodoList() {
   function tasksHandler(event) {
     event.preventDefault();
     setTasks([...tasks, { text: input, checked: false }]);
+    localStorage.setItem('tasks', JSON.stringify([...tasks, { text: input, checked: false }]));
   }
 
   function checkTask(index) {
     let tasksArray = [...tasks];
     tasksArray[index].checked = !tasksArray[index].checked;
     setTasks(tasksArray);
+    localStorage.setItem('tasks', JSON.stringify(tasksArray));
   }
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('tasks')) != null) {
+      setTasks(JSON.parse(localStorage.getItem('tasks')));
+    }
+  }, []);
 
   return (
     <div>
