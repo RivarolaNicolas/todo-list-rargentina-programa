@@ -17,10 +17,8 @@ export default function TodoList() {
   }
 
   function checkTask(index) {
-    let tasksArray = [...tasks];
-    tasksArray[index].checked = !tasksArray[index].checked;
-    setTasks(tasksArray);
-    localStorage.setItem('tasks', JSON.stringify(tasksArray));
+    setTasks([...tasks], (tasks[index].checked = !tasks[index].checked));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
   useEffect(() => {
